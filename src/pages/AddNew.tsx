@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { usePostBookMutation } from "../redux/features/books/bookApi";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AddNew = () => {
   const [title, setTitle] = useState("");
@@ -10,6 +12,14 @@ const AddNew = () => {
   const [postBook, { isLoading, isError, isSuccess }] =
     usePostBookMutation();
 
+    if (isSuccess) {
+        toast.success("Book added successfully!");
+    }
+
+    if(isError) {
+        toast.error("Something went wrong!");
+    }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -19,7 +29,7 @@ const AddNew = () => {
       genre,
       publicationYear: parseInt(publicationYear),
     };
-    
+
     postBook(bookData);
 
     console.log(bookData);
@@ -80,6 +90,7 @@ const AddNew = () => {
           Create Book
         </button>
       </form>
+      <ToastContainer />
     </div>
   );
 };
