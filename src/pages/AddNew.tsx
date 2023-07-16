@@ -32,7 +32,6 @@ const AddNew = () => {
 
     postBook(bookData);
 
-    console.log(bookData);
   };
 
   return (

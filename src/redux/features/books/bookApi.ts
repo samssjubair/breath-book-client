@@ -6,7 +6,14 @@ const bookApi = api.injectEndpoints({
       query: (id) => `/books/${id}`,
     }),
     getBooks: builder.query({
-      query: ({ page, limit, sort, searchTerm="", year="",genre="" }) => {
+      query: ({
+        page,
+        limit,
+        sort,
+        searchTerm = "",
+        year = "",
+        genre = "",
+      }) => {
         let queryString = `/books`;
 
         if (page && limit && sort) {
@@ -14,7 +21,7 @@ const bookApi = api.injectEndpoints({
         }
 
         if (searchTerm || year || genre) {
-            queryString += `?searchTerm=${searchTerm}&publicationYear=${year}&genre=${genre}`;
+          queryString += `?searchTerm=${searchTerm}&publicationYear=${year}&genre=${genre}`;
         }
 
         return queryString;
@@ -22,12 +29,18 @@ const bookApi = api.injectEndpoints({
     }),
 
     postBook: builder.mutation({
-      query: (data ) => ({
+      query: (data) => ({
         url: `/books`,
         method: "POST",
         body: data,
       }),
-    //   invalidatesTags: ["Comments"], // it will invalidate the cache for the Comments tag
+    }),
+
+    deleteBook: builder.mutation({
+      query: (id) => ({
+        url: `/books/${id}`,
+        method: "DELETE"
+      }),
     }),
     // getComment: builder.query({
     //   query: (id) => `/comment/${id}`,
@@ -40,5 +53,6 @@ export const {
   useGetBooksQuery,
   useGetSingleBookQuery,
   usePostBookMutation,
+  useDeleteBookMutation
 //   useGetBooksForHomePageQuery,
 } = bookApi;
