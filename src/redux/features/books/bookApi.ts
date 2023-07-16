@@ -2,14 +2,21 @@ import { api } from "../../api/apiSlice";
 
 const bookApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getBooks: builder.query({
-      query: () => "/books",
-    }),
     getSingleBook: builder.query({
       query: (id) => `/books/${id}`,
     }),
-    getBooksForHomePage: builder.query({
-      query: () => `/books?page=1&limit=10&sort=-createdAt`,
+    getBooks: builder.query({
+      query: ({ page, limit, sort, searchTerm }) => {
+        let queryString = `/books?searchTerm=${searchTerm}`;
+
+        if (page && limit && sort) {
+          queryString += `?page=${page}&limit=${limit}&sort=-${sort}`;
+        }
+
+
+
+        return queryString;
+      },
     }),
 
     // postComment: builder.mutation({
@@ -30,5 +37,5 @@ const bookApi = api.injectEndpoints({
 export const {
   useGetBooksQuery,
   useGetSingleBookQuery,
-  useGetBooksForHomePageQuery,
+//   useGetBooksForHomePageQuery,
 } = bookApi;

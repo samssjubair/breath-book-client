@@ -1,10 +1,31 @@
+import { useState } from "react";
 import { useGetBooksQuery } from "../redux/features/books/bookApi";
 
-const Home = () => {
-    const { data, isLoading, error } = useGetBooksQuery({page: 1, limit: 10, sort: "createdAt"});
-    // console.log(data?.data, "data");
+const Books = () => {
+    const [searchTerm, setSearchTerm] = useState("");
+    const [searchText, setSearchText] = useState("");
+    const { data, isLoading, error } = useGetBooksQuery({searchTerm});
+    const handleSearch = () => {
+      setSearchTerm(searchText);
+      
+    };
     return (
       <div>
+        <div className="flex m-4">
+          <input
+            type="text"
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            placeholder="Search by title..."
+            className="px-4 py-2 border border-gray-300 rounded-md"
+          />
+          <button
+            onClick={handleSearch}
+            className="px-4 py-2 ml-2 bg-blue-500 text-white rounded-md"
+          >
+            Search
+          </button>
+        </div>
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
@@ -47,4 +68,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default Books;

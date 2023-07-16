@@ -7,7 +7,7 @@ const Navbar: React.FC = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             <a
-              href="#"
+              href="/"
               className="text-white text-lg font-semibold hover:text-gray-200"
             >
               Breath-Book
@@ -17,7 +17,7 @@ const Navbar: React.FC = () => {
             <ul className="flex space-x-4">
               <li>
                 <a
-                  href="#"
+                  href="/"
                   className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
                   Home
@@ -25,18 +25,27 @@ const Navbar: React.FC = () => {
               </li>
               <li>
                 <a
-                  href="#"
+                  href="/books"
                   className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
-                  Books
+                  All Books
                 </a>
               </li>
               <li>
                 <a
-                  href="#"
+                  href="/login"
                   className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
-                  Authors
+                  Login
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href="/signup"
+                  className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  Signup
                 </a>
               </li>
               {/* Add more navigation items as needed */}
