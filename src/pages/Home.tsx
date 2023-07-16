@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useGetBooksQuery } from "../redux/features/books/bookApi";
 
 const Home = () => {
@@ -26,7 +27,7 @@ const Home = () => {
             {data?.data.map((book) => (
               <tr key={book._id}>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">{book.title}</div>
+                  <Link to={`/book-details/${book._id}`} className="text-sm text-gray-900">{book.title}</Link>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="text-sm text-gray-900">{book.author}</div>

@@ -1,34 +1,35 @@
-import {  useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   useDeleteBookMutation,
   useGetSingleBookQuery,
+  usePostReviewMutation,
 } from "../redux/features/books/bookApi";
+import { useState } from "react";
 
 const BookDetails = () => {
   const { id } = useParams();
-  const userEmail= localStorage.getItem("email")
+  const [reviewInput, setReviewInput] = useState("");
+  const userEmail = localStorage.getItem("email");
   const navigate = useNavigate();
 
   const { data, isLoading, error } = useGetSingleBookQuery(id);
 
   const [deleteBook, { isLoading: isDeleting }] = useDeleteBookMutation();
 
+  const [postReview, { isLoading: isPosting }] = usePostReviewMutation();
+
   const handleEdit = () => {
     navigate(`/edit-book/${id}`);
   };
 
   const handleDelete = async () => {
-      if (userEmail !== data?.data.addedBy) {
-        alert("You are not authorized to delete this book");
-        return;
-      }
+    if (userEmail !== data?.data.addedBy) {
+      alert("You are not authorized to delete this book");
+      return;
+    }
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this book?"
     );
-
-    // console.log("userEmail",data)
-
-  
 
     if (confirmDelete) {
       try {
@@ -38,7 +39,25 @@ const BookDetails = () => {
         console.log("Error occurred while deleting the book:", error);
       }
     }
-    
+  };
+
+  const handleReviewPosting = async () => {
+    if (reviewInput === "") {
+      alert("Please enter a review");
+      return;
+    }
+    const reviewData = {
+      id,
+      data: {
+        comment: reviewInput,
+      },
+    };
+    try {
+      await postReview(reviewData);
+      setReviewInput("");
+    } catch (error) {
+      console.log("Error occurred while posting the review:", error);
+    }
   };
 
   return (
@@ -65,6 +84,25 @@ const BookDetails = () => {
             </ul>
           ) : (
             <p className="text-gray-500">No reviews found.</p>
+          )}
+
+          {userEmail === data?.data.addedBy && (
+            <>
+              <input
+                value={reviewInput}
+                onChange={(e) => setReviewInput(e.target.value)}
+                className="border-2 border-black m-2 p-2"
+                type="text"
+                placeholder="Add Review"
+              />
+              <button
+                onClick={handleReviewPosting}
+                className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mr-2"
+                disabled={isPosting}
+              >
+                {isPosting ? "Posting..." : "Post Review"}
+              </button>
+            </>
           )}
 
           <div>
