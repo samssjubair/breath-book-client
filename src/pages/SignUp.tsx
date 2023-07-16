@@ -1,36 +1,36 @@
 import { useState } from "react";
-import { useLoginUserMutation } from "../redux/features/auth/authApi";
+import { useLoginUserMutation, useSignupUserMutation } from "../redux/features/auth/authApi";
 import { Link, useNavigate } from "react-router-dom";
 
-const LoginPage = () => {
+const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate= useNavigate();
+  const navigate = useNavigate();
 
-  const [loginUser, { isLoading, isError, isSuccess }] = useLoginUserMutation();
+  const [signupUser, { isLoading, isError, isSuccess }] = useSignupUserMutation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const loginInfo = {
-        email,
-        password
-    }
-    
-    const result=await loginUser(loginInfo);
+    const signupInfo = {
+      email,
+      password,
+    };
 
-    if (isError) {
-      alert("Error occured, please try again");
+    const result = await signupUser(signupInfo);
+
+    if (result.data.success) {
+      localStorage.setItem("email", email);
+      navigate("/login");
     }
-    if(isSuccess){
-        localStorage.setItem("email", email);
-        navigate("/")
+    else{
+        alert("Error occured");
     }
   };
 
   return (
     <div className="flex justify-center items-center h-screen">
       <div className="bg-white rounded-lg shadow-lg p-6">
-        <h2 className="text-2xl font-bold mb-4">Login</h2>
+        <h2 className="text-2xl font-bold mb-4">Signup</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label
@@ -68,15 +68,18 @@ const LoginPage = () => {
             type="submit"
             className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
           >
-            Login
+            SignUp
           </button>
         </form>
         <p>
-          New here? <Link className="text-blue-400" to="/sign-up">Create an account</Link>
+          Already have an account?{" "}
+          <Link className="text-blue-400" to="/sign-up">
+            Login Instead
+          </Link>
         </p>
       </div>
     </div>
   );
 };
 
-export default LoginPage;
+export default SignUp;

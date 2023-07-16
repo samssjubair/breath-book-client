@@ -1,6 +1,11 @@
 import React from "react";
 
 const Navbar: React.FC = () => {
+  const userEmail = localStorage.getItem("email");
+  const handleLogout = () => {
+    localStorage.removeItem("email");
+    window.location.href = "/";
+};
   return (
     <nav className="bg-gray-800 py-4 px-6">
       <div className="max-w-7xl mx-auto">
@@ -31,23 +36,35 @@ const Navbar: React.FC = () => {
                   All Books
                 </a>
               </li>
-              <li>
-                <a
-                  href="/login"
-                  className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+
+              {userEmail ? (
+                <li
+                  onClick={handleLogout}
+                  className="text-gray-300 hover:text-white px-2 py-1 rounded-md text-sm font-medium "
                 >
-                  Login
-                </a>
-              </li>
+                  Logout
+                </li>
+              ) : (
+                <li>
+                  <a
+                    href="/login"
+                    className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                  >
+                    Login
+                  </a>
+                </li>
+              )}
 
               <li>
                 <a
-                  href="/signup"
+                  href="/sign-up"
                   className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
                   Signup
                 </a>
               </li>
+              <li className="text-gray-100 hover:text-white px-3 py-1 rounded-md text-sm  font-bold">{userEmail}</li>
+
               {/* Add more navigation items as needed */}
             </ul>
           </div>
