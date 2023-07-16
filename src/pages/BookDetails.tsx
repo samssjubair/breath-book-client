@@ -1,4 +1,4 @@
-import { redirect, useParams, useNavigate } from "react-router-dom";
+import {  useParams, useNavigate } from "react-router-dom";
 import {
   useDeleteBookMutation,
   useGetSingleBookQuery,
@@ -13,7 +13,7 @@ const BookDetails = () => {
   const [deleteBook, { isLoading: isDeleting }] = useDeleteBookMutation();
 
   const handleEdit = () => {
-    // history.push(`/edit-book/${id}`);
+    navigate(`/edit-book/${id}`);
   };
 
   const handleDelete = async () => {
