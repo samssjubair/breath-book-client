@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useGetBooksQuery } from "../redux/features/books/bookApi";
+import { Link } from "react-router-dom";
 // import { useHistory } from "react-router-dom";
 
 const Books = () => {
@@ -23,11 +24,6 @@ const Books = () => {
 
   const handleFilterYear = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilterYear(e.target.value);
-  };
-
-  const handleAddNew = () => {
-    // history.push("/add-new-book");
-    console.log("add new");
   };
 
   return (
@@ -75,12 +71,11 @@ const Books = () => {
           />
         </div>
       </div>
-      <button
-        onClick={handleAddNew}
-        className="m-4 px-4 py-2 bg-green-500 text-white rounded-md"
+      <Link to="/add-new-book"
+        className="m-4 px-4 py-2 bg-green-500 text-white rounded-md inline-block"
       >
         Add New
-      </button>
+      </Link>
       <table className="min-w-full divide-y divide-gray-200">
         <thead className="bg-gray-50">
           <tr>

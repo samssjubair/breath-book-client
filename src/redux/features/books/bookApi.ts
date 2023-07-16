@@ -21,14 +21,14 @@ const bookApi = api.injectEndpoints({
       },
     }),
 
-    // postComment: builder.mutation({
-    //   query: ({ id, data }) => ({
-    //     url: `/comment/${id}`,
-    //     method: "POST",
-    //     body: data,
-    //   }),
+    postBook: builder.mutation({
+      query: (data ) => ({
+        url: `/books`,
+        method: "POST",
+        body: data,
+      }),
     //   invalidatesTags: ["Comments"], // it will invalidate the cache for the Comments tag
-    // }),
+    }),
     // getComment: builder.query({
     //   query: (id) => `/comment/${id}`,
     //   providesTags: ["Comments"], // optional line for caching
@@ -39,5 +39,6 @@ const bookApi = api.injectEndpoints({
 export const {
   useGetBooksQuery,
   useGetSingleBookQuery,
+  usePostBookMutation,
 //   useGetBooksForHomePageQuery,
 } = bookApi;
