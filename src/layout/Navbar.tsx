@@ -45,25 +45,29 @@ const Navbar: React.FC = () => {
                   Logout
                 </li>
               ) : (
-                <li>
-                  <a
-                    href="/login"
-                    className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    Login
-                  </a>
-                </li>
+                <>
+                  <li>
+                    <a
+                      href="/login"
+                      className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                    >
+                      Login
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/sign-up"
+                      className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                    >
+                      Signup
+                    </a>
+                  </li>
+                </>
               )}
 
-              <li>
-                <a
-                  href="/sign-up"
-                  className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Signup
-                </a>
+              <li className="text-gray-100 hover:text-white px-3 py-1 rounded-md text-sm  font-bold">
+                {userEmail}
               </li>
-              <li className="text-gray-100 hover:text-white px-3 py-1 rounded-md text-sm  font-bold">{userEmail}</li>
 
               {/* Add more navigation items as needed */}
             </ul>

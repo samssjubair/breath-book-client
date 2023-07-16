@@ -2,8 +2,10 @@ import { useState } from "react";
 import { usePostBookMutation } from "../redux/features/books/bookApi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 const AddNew = () => {
+    const navigate= useNavigate()
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [genre, setGenre] = useState("");
@@ -11,10 +13,6 @@ const AddNew = () => {
 
   const [postBook, { isLoading, isError, isSuccess }] =
     usePostBookMutation();
-
-    if (isSuccess) {
-        toast.success("Book added successfully!");
-    }
 
     if(isError) {
         toast.error("Something went wrong!");
@@ -24,13 +22,18 @@ const AddNew = () => {
     e.preventDefault();
 
     const bookData = {
+      addedBy: localStorage.getItem("email"),
       title,
       author,
       genre,
       publicationYear: parseInt(publicationYear),
     };
 
-    postBook(bookData);
+    await postBook(bookData);
+    if(isSuccess) {
+        navigate("/books");
+    }
+
 
   };
 

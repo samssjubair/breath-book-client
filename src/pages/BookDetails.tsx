@@ -6,6 +6,7 @@ import {
 
 const BookDetails = () => {
   const { id } = useParams();
+  const userEmail= localStorage.getItem("email")
   const navigate = useNavigate();
 
   const { data, isLoading, error } = useGetSingleBookQuery(id);
@@ -17,9 +18,17 @@ const BookDetails = () => {
   };
 
   const handleDelete = async () => {
+      if (userEmail !== data?.data.addedBy) {
+        alert("You are not authorized to delete this book");
+        return;
+      }
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this book?"
     );
+
+    // console.log("userEmail",data)
+
+  
 
     if (confirmDelete) {
       try {

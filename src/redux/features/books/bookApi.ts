@@ -26,6 +26,7 @@ const bookApi = api.injectEndpoints({
 
         return queryString;
       },
+        providesTags: ["Books"], // optional line for caching
     }),
 
     postBook: builder.mutation({
@@ -42,6 +43,7 @@ const bookApi = api.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
+      
     }),
 
     deleteBook: builder.mutation({
@@ -49,6 +51,7 @@ const bookApi = api.injectEndpoints({
         url: `/books/${id}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["Books"],
     }),
     // getComment: builder.query({
     //   query: (id) => `/comment/${id}`,

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 // import { useHistory } from "react-router-dom";
 
 const Books = () => {
+    const userEmail= localStorage.getItem("email") as string
   const [searchTerm, setSearchTerm] = useState("");
   const [searchText, setSearchText] = useState("");
   const [filterGenre, setFilterGenre] = useState("");
@@ -71,11 +72,13 @@ const Books = () => {
           />
         </div>
       </div>
-      <Link to="/add-new-book"
+      { userEmail &&
+        
+        <Link to="/add-new-book"
         className="m-4 px-4 py-2 bg-green-500 text-white rounded-md inline-block"
       >
         Add New
-      </Link>
+      </Link>}
       <table className="min-w-full divide-y divide-gray-200">
         <thead className="bg-gray-50">
           <tr>
