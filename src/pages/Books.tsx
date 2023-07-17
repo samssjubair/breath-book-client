@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useGetBooksQuery } from "../redux/features/books/bookApi";
 import { Link } from "react-router-dom";
+import { IBookDetails } from "../types/types";
 // import { useHistory } from "react-router-dom";
 
 const Books = () => {
@@ -9,7 +10,7 @@ const Books = () => {
   const [searchText, setSearchText] = useState("");
   const [filterGenre, setFilterGenre] = useState("");
   const [filterYear, setFilterYear] = useState("");
-  const { data, isLoading, error } = useGetBooksQuery({
+  const { data } = useGetBooksQuery({
     searchTerm,
     genre: filterGenre,
     year: filterYear,
@@ -97,7 +98,7 @@ const Books = () => {
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
-          {data?.data.map((book) => (
+          {data?.data.map((book: IBookDetails) => (
             <tr key={book._id}>
               <td className="px-6 py-4 whitespace-nowrap">
                 <Link to={`/book-details/${book._id}`} className="text-sm text-gray-900">{book.title}</Link>

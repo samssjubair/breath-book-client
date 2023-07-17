@@ -11,7 +11,7 @@ const AddNew = () => {
   const [genre, setGenre] = useState("");
   const [publicationYear, setPublicationYear] = useState("");
 
-  const [postBook, { isLoading, isError, isSuccess }] =
+  const [postBook, { isError, isSuccess }] =
     usePostBookMutation();
 
     if(isError) {

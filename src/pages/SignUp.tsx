@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLoginUserMutation, useSignupUserMutation } from "../redux/features/auth/authApi";
+import { useSignupUserMutation } from "../redux/features/auth/authApi";
 import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
@@ -7,7 +7,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const [signupUser, { isLoading, isError, isSuccess }] = useSignupUserMutation();
+  const [signupUser] = useSignupUserMutation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -15,17 +15,21 @@ const SignUp = () => {
       email,
       password,
     };
-
+  
     const result = await signupUser(signupInfo);
-
-    if (result.data.success) {
-      localStorage.setItem("email", email);
-      navigate("/login");
-    }
-    else{
-        alert("Error occured");
+  
+    if ("data" in result) {
+      if (result.data.success) {
+        localStorage.setItem("email", email);
+        navigate("/login");
+      } else {
+        alert("Error occurred");
+      }
+    } else {
+      alert("Error occurred");
     }
   };
+  
 
   return (
     <div className="flex justify-center items-center h-screen">

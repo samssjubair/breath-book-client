@@ -7,7 +7,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const navigate= useNavigate();
 
-  const [loginUser, { isLoading, isError, isSuccess }] = useLoginUserMutation();
+  const [loginUser, {  isError, isSuccess }] = useLoginUserMutation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -16,7 +16,7 @@ const LoginPage = () => {
         password
     }
     
-    const result=await loginUser(loginInfo);
+    await loginUser(loginInfo);
 
     if (isError) {
       alert("Error occured, please try again");

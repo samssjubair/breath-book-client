@@ -1,4 +1,4 @@
-import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 // import logger from "./middlewares/logger";
 import booksReducer from "./features/books/bookReducer";
 import { api } from "./api/apiSlice";

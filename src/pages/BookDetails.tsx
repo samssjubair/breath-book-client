@@ -5,6 +5,9 @@ import {
   usePostReviewMutation,
 } from "../redux/features/books/bookApi";
 import { useState } from "react";
+import { IReview } from "../types/types";
+
+
 
 const BookDetails = () => {
   const { id } = useParams();
@@ -21,6 +24,16 @@ const BookDetails = () => {
   const handleEdit = () => {
     navigate(`/edit-book/${id}`);
   };
+
+  function getErrorText(error: any) {
+    if ("status" in error) {
+      return `HTTP Error ${error.status}`;
+    }
+    if ("data" in error) {
+      return error.data;
+    }
+    return "An error occurred.";
+  }
 
   const handleDelete = async () => {
     if (userEmail !== data?.data.addedBy) {
@@ -65,7 +78,7 @@ const BookDetails = () => {
       {isLoading ? (
         <p>Loading...</p>
       ) : error ? (
-        <p>Error: {error.message}</p>
+        <p>Error: {getErrorText(error)}</p>
       ) : (
         <>
           <h2 className="text-2xl font-bold mb-4">Title: {data?.data.title}</h2>
@@ -76,7 +89,7 @@ const BookDetails = () => {
           <h3 className="text-xl font-bold mb-2">Reviews:</h3>
           {data?.data.reviews.length > 0 ? (
             <ul className="list-disc pl-6">
-              {data?.data.reviews.map((review) => (
+              {data?.data.reviews.map((review: IReview) => (
                 <li key={review._id} className="mb-2">
                   {review.comment}
                 </li>

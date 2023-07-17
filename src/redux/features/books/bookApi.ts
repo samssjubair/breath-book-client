@@ -1,10 +1,11 @@
+import { FullTagDescription } from "@reduxjs/toolkit/dist/query/endpointDefinitions";
 import { api } from "../../api/apiSlice";
 
 const bookApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getSingleBook: builder.query({
       query: (id) => `/books/${id}`,
-      providesTags: ["BookDetail"]
+      providesTags: ["BookDetail"].map((tag) => ({ type: tag })) as FullTagDescription<never>[]
     }),
     getBooks: builder.query({
       query: ({
@@ -27,7 +28,7 @@ const bookApi = api.injectEndpoints({
 
         return queryString;
       },
-      providesTags: ["Books"], // optional line for caching
+      providesTags: ["Books"].map((tag) => ({ type: tag })) as FullTagDescription<never>[], // optional line for caching
     }),
 
     postBook: builder.mutation({
@@ -51,7 +52,7 @@ const bookApi = api.injectEndpoints({
         url: `/books/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Books"],
+      invalidatesTags: ["Books"] as unknown as FullTagDescription<never>[],
     }),
 
     postReview: builder.mutation({
@@ -60,7 +61,7 @@ const bookApi = api.injectEndpoints({
         method: "POST",
         body: data
       }),
-        invalidatesTags: ["BookDetail"]
+        invalidatesTags: ["BookDetail"] as unknown as FullTagDescription<never>[],
     }),
   }),
 });

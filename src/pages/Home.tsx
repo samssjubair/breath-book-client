@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import { useGetBooksQuery } from "../redux/features/books/bookApi";
+import { IBookDetails } from "../types/types";
 
 const Home = () => {
-    const { data, isLoading, error } = useGetBooksQuery({page: 1, limit: 10, sort: "createdAt"});
+    const { data } = useGetBooksQuery({page: 1, limit: 10, sort: "createdAt"});
     // console.log(data?.data, "data");
     return (
       <div>
@@ -24,7 +25,7 @@ const Home = () => {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {data?.data.map((book) => (
+            {data?.data.map((book: IBookDetails) => (
               <tr key={book._id}>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <Link to={`/book-details/${book._id}`} className="text-sm text-gray-900">{book.title}</Link>

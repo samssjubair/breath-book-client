@@ -11,7 +11,7 @@ const EditBook = () => {
   const [genre, setGenre] = useState("");
   const [publicationYear, setPublicationYear] = useState("");
 
-  const { data, isLoading: getLoading, error } = useGetSingleBookQuery(id);
+  const { data } = useGetSingleBookQuery(id);
 
   const userEmail= localStorage.getItem("email")
 
@@ -27,7 +27,7 @@ const EditBook = () => {
   }, [data]);
 
 
-  const [updateBook, { isLoading, isError, isSuccess }] = useUpdateBookMutation();
+  const [updateBook, {  isError, isSuccess }] = useUpdateBookMutation();
 
   if (isSuccess) {
     toast.success("Book Updated successfully!");
