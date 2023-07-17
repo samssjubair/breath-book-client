@@ -40,7 +40,7 @@ const Navbar: React.FC = () => {
               {userEmail ? (
                 <li
                   onClick={handleLogout}
-                  className="text-gray-300 hover:text-white px-2 py-1 rounded-md text-sm font-medium "
+                  className="text-gray-300 hover:text-white px-2 py-1 rounded-md text-sm font-medium cursor-pointer"
                 >
                   Logout
                 </li>

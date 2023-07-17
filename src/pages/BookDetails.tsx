@@ -91,7 +91,7 @@ const BookDetails = () => {
               <input
                 value={reviewInput}
                 onChange={(e) => setReviewInput(e.target.value)}
-                className="border-2 border-black m-2 p-2"
+                className="border border-gray-400 rounded my-4 p-2"
                 type="text"
                 placeholder="Add Review"
               />
